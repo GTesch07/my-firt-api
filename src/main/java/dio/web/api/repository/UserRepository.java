@@ -28,7 +28,7 @@ public class UserRepository {
         System.out.println(id);
     }
 
-    public List<User> listAll() {
+    public List<User> findAll() {
         List<User> users = new ArrayList<>();
         users.add(new User("gleyson", "password"));
         users.add(new User("frank", "masterpass"));
