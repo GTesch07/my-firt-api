@@ -23,7 +23,7 @@ public class UserRepository {
         System.out.println(user);
     }
 
-    public void remove(Integer id) {
+    public void deleteUser(Integer id) {
         System.out.println(String.format("DELETE/id - Recebendo o id: %d para excluir um usuário", id));
         System.out.println(id);
     }
