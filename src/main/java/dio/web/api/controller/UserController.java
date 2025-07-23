@@ -27,7 +27,8 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public void remove(@PathVariable("id") Integer id) {
-        repository.remove(id);
+    public void deleteUser(@PathVariable("id") Integer id) {
+        repository.deleteUser(id);
     }
+
 }
