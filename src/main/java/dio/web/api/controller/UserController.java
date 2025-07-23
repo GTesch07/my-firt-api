@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import dio.web.api.model.User;
@@ -17,5 +18,10 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getUsers() {
         return repository.findAll();
+    }
+
+    @GetMapping("/users/{username}")
+    public User getOne(@PathVariable("username") String username) {
+        return repository.findByUsername(username);
     }
 }

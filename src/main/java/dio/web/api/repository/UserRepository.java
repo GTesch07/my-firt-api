@@ -40,4 +40,9 @@ public class UserRepository {
         return new User("gleyson", "password");
     }
 
+    public User findByUsername(String login) {
+        System.out.println(String.format("FIND/username - Recebendo o username: %s para localizar um usuário", login));
+        return new User("gleyson", "password");
+    }
+
 }
