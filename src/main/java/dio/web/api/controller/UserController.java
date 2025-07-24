@@ -41,4 +41,8 @@ public class UserController {
         repository.save(user);
     }
 
+    @PutMapping
+    public void putUser(@RequestBody User user) {
+        repository.update(user);
+    }
 }
