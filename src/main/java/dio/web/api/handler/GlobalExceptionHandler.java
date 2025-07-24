@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import jakarta.annotation.Resource;
 import org.springframework.cglib.proxy.UndeclaredThrowableException;
 
+@RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Resource
@@ -35,7 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> handleGeneral(Exception e, WebRequest request) {
         if (e.getClass().isAssignableFrom(UndeclaredThrowableException.class)) {
             UndeclaredThrowableException exception = (UndeclaredThrowableException) e;
-            return handleBusinessException((BusinessException) exception.getUndeclaredThrowable(), request);
+            return handleBusinessException((BusinessException) exception.getUndeclaredThrowable());
         } else {
             String message = messageSource.getMessage("error.server", new Object[] { e.getMessage() }, null);
             ResponseError error = responseError(message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,9 +45,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
     }
 
-    @ExceptionHandler({ BusinessException.class })
-    private ResponseEntity<Object> handleBusinessException(BusinessException e, WebRequest request) {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleBusinessException(BusinessException e) {
         ResponseError error = responseError(e.getMessage(), HttpStatus.CONFLICT);
-        return handleExceptionInternal(e, error, headers(), HttpStatus.CONFLICT, request);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .headers(headers())
+                .body(error);
     }
+
 }

@@ -43,6 +43,6 @@ public class UserController {
 
     @PutMapping
     public void putUser(@RequestBody User user) {
-        repository.update(user);
+        repository.save(user);
     }
 }
