@@ -33,18 +33,22 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Desativa CSRF temporariamente para APIs REST
+                .csrf().disable()
                 .authorizeHttpRequests()
+                .requestMatchers("/").permitAll()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/managers").hasRole("MANAGERS")
+                .requestMatchers("/operators").hasAnyRole("USERS", "MANAGERS")
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic(); // Habilita autenticação Basic
+                .formLogin(); // ou .httpBasic() se preferir autenticação via header
 
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // Não criptografa a senha, apenas para desenvolvimento
+        // Não recomendado para produção!
         return NoOpPasswordEncoder.getInstance();
     }
 }
