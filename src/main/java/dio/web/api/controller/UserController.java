@@ -18,31 +18,33 @@ import dio.web.api.repository.UserRepository;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserRepository repository;
-
-    @GetMapping()
-    public List<User> getUsers() {
-        return repository.findAll();
-    }
-
-    @GetMapping("/{username}")
-    public User getOne(@PathVariable("username") String username) {
-        return repository.findByUsername(username);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable("id") Integer id) {
-        repository.deleteUser(id);
-    }
-
-    @PostMapping()
-    public void postUser(@RequestBody User user) {
-        repository.save(user);
-    }
-
-    @PutMapping
-    public void putUser(@RequestBody User user) {
-        repository.save(user);
-    }
+    /*
+     * @Autowired
+     * private UserRepository repository;
+     * 
+     * @GetMapping()
+     * public List<User> getUsers() {
+     * return repository.findAll();
+     * }
+     * 
+     * @GetMapping("/{username}")
+     * public User getOne(@PathVariable("username") String username) {
+     * return repository.findByUsername(username);
+     * }
+     * 
+     * @DeleteMapping("/{id}")
+     * public void deleteUser(@PathVariable("id") Integer id) {
+     * repository.deleteUser(id);
+     * }
+     * 
+     * @PostMapping()
+     * public void postUser(@RequestBody User user) {
+     * repository.save(user);
+     * }
+     * 
+     * @PutMapping
+     * public void putUser(@RequestBody User user) {
+     * repository.save(user);
+     * }
+     */
 }
